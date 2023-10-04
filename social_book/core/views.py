@@ -11,6 +11,10 @@ from .models import Profile
 def index(request): 
     return render(request, 'index.html')
 
+@login_required(login_url='signin')
+def setting(request): 
+    return render(request, 'setting.html')
+
 def signup(request): 
     if request.method == 'POST': 
         username = request.POST['username'] 
@@ -30,12 +34,14 @@ def signup(request):
                 user.save()
 
                 #Log user in and redirect to settings page 
+                user_login = auth.authenticate(username=username, password=password)
+                auth.login(request, user_login) 
 
                 #Create a profile object for the new user 
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user=user_model, id_user=user_model.id)
                 new_profile.save() 
-                return redirect('signup')
+                return redirect('setting')
         else: 
             messages.info(request, 'Password Not Matching')
             return redirect('signup')         
