@@ -44,7 +44,7 @@
                         <p></p>
                     </div>
                     <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
-                        <form action="" method="POST">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                        <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
                            <!-- <div>
@@ -61,15 +61,16 @@
                             </div> -->
                             <div class="col-span-2">
                                 <label for="image">Profile Image</label>  
-                                <input type="file" id="image" name="image" rows="3"  class="shadow-none bg-gray-100"></input>
+                                <img width="200" height="200" src="{{user_profile.profileimg.url}}" alt="">
+                                <input type="file" id="image" name="image" rows="3" value="{{user_profile.profileimg}}"  class="shadow-none bg-gray-100"></input>
                             </div> 
                             <div class="col-span-2">
                                 <label for="bio">Bio</label>  
-                                <textarea id="bio" name="bio" rows="3"  class="shadow-none bg-gray-100"></textarea>
+                                <textarea id="bio" name="bio" rows="3"  class="shadow-none bg-gray-100">{{user_profile.bio}}</textarea>
                             </div> 
                             <div class="col-span-2">
                                 <label for=""> Location</label>
-                                <input type="text" name="location" placeholder="" class="shadow-none bg-gray-100">
+                                <input type="text" name="location" value="{{user_profile.location}}" class="shadow-none bg-gray-100">
                             </div>
                             <!-- <div>
                                <label for=""> Working at</label>
