@@ -11,10 +11,13 @@ from .models import Profile
 def index(request): 
     return render(request, 'index.html')
 
+def upload(request):
+    return HttpResponse('<h1>Upload View</h1>')
+
 @login_required(login_url='signin')
 def setting(request): 
     user_profile = Profile.objects.get(user=request.user) 
-
+    
     if request.method == 'POST': 
         if request.FILES.get('image') == None: 
             image = user_profile.profileimg 
